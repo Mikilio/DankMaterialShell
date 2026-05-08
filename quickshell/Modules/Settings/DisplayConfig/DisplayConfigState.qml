@@ -309,28 +309,6 @@ Singleton {
         return null;
     }
 
-    function findPartialConfigEntry(data, outputIdentifiers) {
-        const currentSet = new Set(outputIdentifiers);
-        const configs = data.configurations || [];
-        let bestEntry = null;
-        let bestCount = 0;
-        for (let i = 0; i < configs.length; i++) {
-            const cfgKeys = Object.keys(configs[i].outputs || {});
-            if (cfgKeys.length === 0)
-                continue;
-            if (!cfgKeys.every(k => currentSet.has(k)))
-                continue;
-            if (cfgKeys.length > bestCount) {
-                bestCount = cfgKeys.length;
-                bestEntry = {
-                    entry: configs[i],
-                    index: i
-                };
-            }
-        }
-        return null;
-    }
-
     function getProfileMonitorInclusion(profileId) {
         const profile = validatedProfiles[profileId];
         const profileOutputIds = new Set(Object.keys(profile?.outputs || {}));
@@ -2049,9 +2027,7 @@ Singleton {
 
     function confirmChanges(profileId) {
         const outputConfigs = buildCurrentOutputConfigs();
-        lastAppliedEntry = {
-            outputs: outputConfigs
-        };
+        lastAppliedEntry = { outputs: outputConfigs };
 
         if (profileId) {
             readMonitorsJson(data => {
