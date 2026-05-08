@@ -266,7 +266,8 @@ Singleton {
         const fp = outputSetFingerprint(outputIdentifiers);
         let hash = 0;
         for (let i = 0; i < fp.length; i++) {
-            hash = ((hash << 5) - hash) + fp.charCodeAt(i);
+            const char = fp.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
         }
         const hashStr = (hash >>> 0).toString(16);
         return "auto_" + hashStr;
@@ -300,6 +301,28 @@ Singleton {
                 if (autoOnly && configs[i].name)
                     continue;
                 return {
+                    entry: configs[i],
+                    index: i
+                };
+            }
+        }
+        return null;
+    }
+
+    function findPartialConfigEntry(data, outputIdentifiers) {
+        const currentSet = new Set(outputIdentifiers);
+        const configs = data.configurations || [];
+        let bestEntry = null;
+        let bestCount = 0;
+        for (let i = 0; i < configs.length; i++) {
+            const cfgKeys = Object.keys(configs[i].outputs || {});
+            if (cfgKeys.length === 0)
+                continue;
+            if (!cfgKeys.every(k => currentSet.has(k)))
+                continue;
+            if (cfgKeys.length > bestCount) {
+                bestCount = cfgKeys.length;
+                bestEntry = {
                     entry: configs[i],
                     index: i
                 };
