@@ -16,7 +16,7 @@ Item {
 
     function show() {
         if (!isKeyboardActive && keyboard === null) {
-            keyboard = keyboardComponent.createObject(keyboard_controller.rootObject);
+            keyboard = keyboardComponent.createObject(keyboard_controller);
             keyboard.target = keyboard_controller.target;
             keyboard.dismissed.connect(hide);
             isKeyboardActive = true;
@@ -27,6 +27,7 @@ Item {
     function hide() {
         if (isKeyboardActive && keyboard !== null) {
             keyboard.destroy();
+            keyboard = null;
             isKeyboardActive = false;
         } else
             log.debug("The keyboard is already hidden");

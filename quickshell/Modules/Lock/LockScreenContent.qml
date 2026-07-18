@@ -115,6 +115,8 @@ Item {
             return;
         if (root.unlocking)
             return;
+        if (root.demoMode)
+            return;
         lockerReadySent = true;
         if (SessionService.loginctlAvailable && DMSService.apiVersion >= 2) {
             DMSService.sendRequest("loginctl.lockerReady", null, resp => {
@@ -296,8 +298,8 @@ Item {
                 property variant source2: scrollSrc
                 property real progress: 0.0
                 property real fillMode: Theme.getShaderFillMode(wallpaperBackground.fillModeName)
-                property real scrollX: scrollPos.scrollX
-                property real scrollY: scrollPos.scrollY
+                property real scrollX: scrollPos?.scrollX ?? 0
+                property real scrollY: scrollPos?.scrollY ?? 0
                 property real imageWidth1: scrollSource.implicitWidth > 0 ? scrollSource.implicitWidth : 1
                 property real imageHeight1: scrollSource.implicitHeight > 0 ? scrollSource.implicitHeight : 1
                 property real imageWidth2: imageWidth1
