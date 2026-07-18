@@ -1,0 +1,1 @@
+../../../quickshell/Modules/Lock/FadeToLockWindow.qml

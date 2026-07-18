@@ -1,0 +1,8 @@
+module qs.Common
+singleton Theme 1.0 Theme.qml
+singleton SettingsData 1.0 SettingsData.qml
+singleton I18n 1.0 I18n.qml
+singleton Anims 1.0 Anims.qml
+singleton SessionData 1.0 SessionData.qml
+singleton LayerShell 1.0 LayerShell.qml
+Ref 1.0 Ref.qml

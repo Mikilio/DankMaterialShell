@@ -1,0 +1,4 @@
+module qs.Modals
+LockPowerMenu 1.0 LockPowerMenu.qml
+SwitchUserModal 1.0 SwitchUserModal.qml
+Pam 1.0 Pam.qml
